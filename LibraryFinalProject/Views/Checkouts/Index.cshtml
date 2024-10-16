@@ -1,0 +1,197 @@
+﻿@model List<CheckoutsViewModel>
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+
+<h1 class="text-center animated fadeIn">Checkout Records</h1>
+
+<!-- Form for Search -->
+<form method="get" asp-action="Index" class="form-inline mb-4 animated fadeInUp search-form">
+    <div class="form-group d-flex flex-column align-items-center">
+        <input type="text" id="search" name="search" class="form-control search-input" placeholder="Checkout Member or Book Name" value="@ViewData["SearchQuery"]" />
+        <button type="submit" class="btn btn-primary btn-animated mt-3">Search</button>
+    </div>
+</form>
+
+<!-- Action Buttons -->
+<div class="mb-4 text-center animated fadeInUp">
+    <a asp-action="Add" asp-controller="Checkouts" class="btn btn-success btn-animated">Add Checkout</a>
+    <a asp-action="IndexNotReturn" asp-controller="Checkouts" class="btn btn-warning btn-animated">Checkouts Without Returns</a>
+</div>
+
+<!-- Checkout Records Table -->
+<table class="table table-bordered table-hover styled-table animated fadeInUp">
+    <thead>
+        <tr>
+            <th>Count</th>
+            <th>Checkout Date</th>
+            <th>Due Date</th>
+            <th>Member Name</th>
+            <th>Book Title</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(++count)</td>
+                <td>@item.Checkout_Date</td>
+                <td>@item.Due_Date</td>
+                <td>@item.MemberName</td>
+                <td>@item.BookTitle</td>
+                <td>@item.TotalPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- Custom Styles -->
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+    /* Animations */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+    }
+
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    /* General Styling */
+    body {
+        background-color: #f7f9fc;
+        font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+        color: #1e3a8a;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    /* Search Form */
+    .search-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .search-input {
+        border: 2px solid #4f83cc;
+        border-radius: 10px;
+        padding: 8px 15px;
+        transition: border-color 0.3s ease;
+    }
+
+        .search-input:focus {
+            border-color: #1e3a8a;
+            box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+        }
+
+    /* Buttons */
+    .btn-animated {
+        transition: transform 0.2s ease, background-color 0.3s ease;
+        font-size: 1rem;
+        border-radius: 25px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary {
+        background-color: #4f83cc;
+        border-color: #4f83cc;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #1e3a8a;
+            transform: scale(1.05);
+        }
+
+    .btn-success {
+        background-color: #66bb6a;
+        border-color: #66bb6a;
+        color: white;
+    }
+
+        .btn-success:hover {
+            background-color: #388e3c;
+            transform: scale(1.05);
+        }
+
+    .btn-warning {
+        background-color: #ffa726;
+        border-color: #ffa726;
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #fb8c00;
+            transform: scale(1.05);
+        }
+
+    /* Table Styling */
+    .styled-table {
+        width: 100%;
+        background-color: #ffffff;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+        .styled-table th, .styled-table td {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .styled-table tbody tr:hover {
+            background-color: #e0f7fa;
+            transition: background-color 0.3s ease;
+        }
+
+    .table-hover thead th {
+        background-color: #4f83cc;
+        color: white;
+        border-bottom: 2px solid #ddd;
+    }
+</style>

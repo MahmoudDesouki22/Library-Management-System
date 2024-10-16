@@ -1,0 +1,113 @@
+﻿@model List<PenaltyViewMode>
+@{
+    ViewData["Title"] = "IndexForMembers";
+    int count = 1;
+}
+
+<h1 class="text-center animated fadeInUp title">Penalty Index</h1>
+
+<table class="table table-bordered table-hover styled-table animated fadeInUp">
+    <thead>
+        <tr>
+            <th>Count</th>
+            <th>Title</th>
+            <th>Full Name</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>Total Delay Days</th>
+            <th>Total Penalty Amount</th>
+            <th>Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@item.Title</td>
+                <td>@item.FullName</td>
+                <td>@item.Due_Date</td>
+                <td>@item.Return_Date</td>
+                <td>@item.TotalDelayDays</td>
+                <td>@item.TotalPenaltyAmount</td>
+                <td>@item.Is_Paid</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: darkblue;
+    }
+
+    .title {
+        font-size: 2rem;
+        color: #2e3d49;
+        margin-bottom: 20px;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animated {
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+        .styled-table th, .styled-table td {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .styled-table th {
+            background-color: #2e3d49;
+            color: #fff;
+        }
+
+        .styled-table td {
+            background-color: #f9f9f9;
+        }
+
+    .btn-animated {
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-animated:hover {
+            transform: scale(1.05);
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+</style>

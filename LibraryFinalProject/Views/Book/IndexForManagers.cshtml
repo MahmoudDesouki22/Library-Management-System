@@ -1,0 +1,191 @@
+﻿@model List<BookAndGenreViewModel>
+@{
+    ViewData["Title"] = "IndexForManagers";
+}
+
+<h1 class="text-center animated fadeIn">Books for Managers</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card admin-card animated fadeInUp" style="box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); border-radius: 15px;">
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>
+                            <a asp-action="AddBook" class="btn btn-success btn-animated">Add Book</a>
+                        </td>
+                        @if (User.IsInRole("Librarian"))
+                        {
+                            <td>
+                                <a asp-action="Add" asp-controller="Checkouts" class="btn btn-success btn-animated">Add Checkout</a>
+                            </td>
+                        }
+                    </tr>
+                </table>
+
+                <form method="get" asp-action="IndexForManagers" class="form-inline mb-4">
+                    <div class="form-group">
+                        <label for="search" class="mr-2">Search</label>
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Title, Author, or Genre" value="@ViewData["SearchQuery"]" />
+                    </div>
+                    <button type="submit" class="btn btn-primary ml-2">Search</button>
+                </form>
+
+                <table class="table table-bordered table-hover animated fadeInUp">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Title</th>
+                            <th style="text-align:center">Author</th>
+                            <th style="text-align:center">Availability_Status</th>
+                            <th style="text-align:center">Book_Photo</th>
+                            <th style="text-align:center">Genre</th>
+                            <th style="text-align:center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align:center">@item.Title</td>
+                                <td style="text-align:center">@item.Author</td>
+                                <td style="color:@item.Availability_color;text-align:center">@item.Availability_Status</td>
+                                <td style="text-align:center"><img src="/Images/@item.Book_Photo" alt="Alternate Text" style="width:100px;height:100px; border-radius: 10px;" /></td>
+                                <td style="text-align:center">@item.Genre_Name</td>
+                                <td style="text-align:center">
+                                    <div class="btn-group" role="group" aria-label="Actions">
+                                        <a asp-action="EditBook" asp-route-id="@item.Id" class="btn btn-warning btn-animated">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-animated">Details</a>
+                                        <a asp-action="DeleteBook" asp-route-id="@item.Id" class="btn btn-danger btn-animated">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: darkblue;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animated {
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    .admin-card {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .table thead {
+        background-color: #4f83cc;
+        color: white;
+    }
+
+    .table-bordered {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .btn-animated {
+        transition: transform 0.2s ease, background-color 0.3s ease;
+        font-size: 1rem;
+    }
+
+        .btn-animated:hover {
+            transform: scale(1.05);
+        }
+
+    .btn-success, .btn-info, .btn-warning, .btn-danger {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .btn-success {
+        background-color: #4CAF50;
+        border-color: #4CAF50;
+    }
+
+    .btn-warning {
+        background-color: #FFC107;
+        border-color: #FFC107;
+    }
+
+    .btn-info {
+        background-color: #17A2B8;
+        border-color: #17A2B8;
+    }
+
+    .btn-danger {
+        background-color: #DC3545;
+        border-color: #DC3545;
+    }
+
+    img {
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+    .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+        .btn-group .btn {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .btn-group .btn-animated {
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+            .btn-group .btn-animated:hover {
+                transform: scale(1.05);
+            }
+</style>

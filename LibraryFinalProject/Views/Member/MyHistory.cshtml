@@ -1,0 +1,115 @@
+﻿@model IEnumerable<LibraryFinalProject.ViewModel.HistoryBookViewModel>
+
+@{
+    ViewData["Title"] = "MyHistory";
+}
+
+<h1 class="text-center animated fadeInUp title">My Borrowed History</h1>
+
+<table class="table styled-table animated fadeInUp">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Book_Photo)</th>
+            <th>@Html.DisplayNameFor(model => model.Checkout_Date)</th>
+            <th>@Html.DisplayNameFor(model => model.FullName)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td><img src="/Images/@item.Book_Photo" alt="Book image" class="book-image" /></td>
+                <td>@Html.DisplayFor(modelItem => item.Checkout_Date)</td>
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+    <style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: darkblue;
+    }
+
+        .title {
+            font-size: 2rem;
+            color: #2e3d49;
+            margin-bottom: 20px;
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            opacity: 0;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+
+        .fadeInUp {
+            animation-name: fadeInUp;
+        }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .styled-table th, .styled-table td {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .styled-table th {
+            background-color: #2e3d49;
+            color: #fff;
+        }
+
+        .styled-table td {
+            background-color: #f9f9f9;
+        }
+
+        .book-image {
+            height: 100px;
+            width: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .btn-animated {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-animated:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background-color: #4f83cc;
+            border-color: #4f83cc;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a8a;
+        }
+
+        .form-control:focus {
+            border-color: #1e3a8a;
+            box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+        }
+    </style>

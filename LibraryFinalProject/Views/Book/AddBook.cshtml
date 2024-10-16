@@ -1,0 +1,172 @@
+﻿@model LibraryFinalProject.ViewModel.BookAndGenreViewModel
+
+@{
+    ViewData["Title"] = "Add a New Book";
+    SelectList items = new SelectList(Model.genres, "Id", "Name"); // لتعبئة الحقول المنسدلة للأنواع
+}
+
+<h1 class="page-title">Add a New Book</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <!-- يجب أن يتضمن enctype="multipart/form-data" لدعم رفع الملفات -->
+        <form asp-action="AddBook" enctype="multipart/form-data" class="book-form">
+            <!-- إظهار أي أخطاء في التحقق من صحة النموذج -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- حقل عنوان الكتاب -->
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Book Title</label>
+                <input asp-for="Title" class="form-control animated-input" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <!-- حقل وصف الكتاب -->
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Description</label>
+                <textarea asp-for="Description" class="form-control animated-input"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <!-- حقل المؤلف -->
+            <div class="form-group">
+                <label asp-for="Author" class="control-label">Author</label>
+                <input asp-for="Author" class="form-control animated-input" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+
+            <!-- حقل ISBN -->
+            <div class="form-group">
+                <label asp-for="ISBN" class="control-label">ISBN</label>
+                <input asp-for="ISBN" class="form-control animated-input" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+
+            <!-- حالة التوفر -->
+            <div class="form-group">
+                <label asp-for="Availability_Status"></label><br />
+                <select asp-for="Availability_Status" class="form-control styled-input">
+                    <option value="0">Select Availability</option>
+                    <option value="Available">Available</option>
+                    <option value="Not Available">Not Available</option>
+                </select>
+                <span asp-validation-for="Availability_Status" class="text-danger"></span>
+            </div>
+
+            <!-- تاريخ النشر -->
+            <div class="form-group">
+                <label asp-for="Publish_Date" class="control-label">Publish Date</label>
+                <input asp-for="Publish_Date" type="date" class="form-control animated-input" />
+                <span asp-validation-for="Publish_Date" class="text-danger"></span>
+            </div>
+
+            <!-- سعر الكتاب لكل أسبوع -->
+            <div class="form-group">
+                <label asp-for="PricePerWeek" class="control-label">Price per Week</label>
+                <input asp-for="PricePerWeek" type="number" step="0.01" class="form-control animated-input" />
+                <span asp-validation-for="PricePerWeek" class="text-danger"></span>
+            </div>
+
+            <!-- صورة الكتاب (رفع الملف) -->
+            <div class="form-group">
+                <label asp-for="BookPhotoFile" class="control-label">Book Photo</label>
+                <input asp-for="BookPhotoFile" type="file" class="form-control animated-input" />
+                <span asp-validation-for="BookPhotoFile" class="text-danger"></span>
+            </div>
+
+            <!-- نوع الكتاب (قائمة منسدلة) -->
+            <div class="form-group">
+                <label asp-for="Genre_Id" class="control-label">Genre</label>
+                <select asp-for="Genre_Id" asp-items="items" class="form-control animated-input">
+                </select>
+                <span asp-validation-for="Genre_Id" class="text-danger"></span>
+            </div>
+
+            <!-- زر الإضافة -->
+            <div class="form-group">
+                <input type="submit" value="Add Book" class="btn btn-primary btn-animated" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="IndexForManagers" class="back-link">Back to List</a>
+</div>
+
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    .page-title {
+        text-align: center;
+        color: #f1f1f1;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    .book-form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        animation: slideIn 1s ease-out;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .animated-input {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+        .animated-input:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px #4f83cc;
+        }
+
+    .btn-animated {
+        background-color: #1e3a8a;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .btn-animated:hover {
+            background-color: #4f83cc;
+            transform: scale(1.05);
+        }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        color: #f1f1f1;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    /* Animations */
+    @@keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+</style>

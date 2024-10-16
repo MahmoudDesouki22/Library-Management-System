@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "IndexNotReturn";
+    int count = 0;
+}
+
+<h1 class="text-center animated fadeInUp title">Checkouts Without Returns</h1>
+
+<div class="text-center mb-4">
+    <a asp-action="Index" asp-controller="Checkouts" class="btn btn-primary btn-animated">Back to All Checkouts</a>
+</div>
+
+<table class="table table-bordered table-hover styled-table animated fadeInUp">
+    <thead>
+        <tr>
+            <th>Count</th>
+            <th>Checkout Date</th>
+            <th>Due Date</th>
+            <th>Member Name</th>
+            <th>Book Title</th>
+            <th>Price</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(++count)</td>
+                <td>@item.Checkout_Date</td>
+                <td>@item.Due_Date</td>
+                <td>@item.MemberName</td>
+                <td>@item.BookTitle</td>
+                <td>@item.TotalPrice</td>
+                <td><a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm btn-animated">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Styles {
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: #2e3d49;
+            margin-bottom: 20px;
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            opacity: 0;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+
+        .fadeInUp {
+            animation-name: fadeInUp;
+        }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .styled-table th, .styled-table td {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .styled-table th {
+            background-color: #2e3d49;
+            color: #fff;
+        }
+
+        .styled-table td {
+            background-color: #f9f9f9;
+        }
+
+        .btn-animated {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-animated:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background-color: #4f83cc;
+            border-color: #4f83cc;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a8a;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            border-color: #f44336;
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .form-control:focus {
+            border-color: #1e3a8a;
+            box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+        }
+    </style>
+}

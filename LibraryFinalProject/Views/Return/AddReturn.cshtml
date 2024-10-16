@@ -1,0 +1,198 @@
+﻿@model LibraryFinalProject.ViewModel.ReturnViewModel
+
+@{
+    ViewData["Title"] = "AddReturn";
+    SelectList BooksList = new SelectList(Model.NotAvailableBooks, "Id", "Title");
+    SelectList MemberList = new SelectList(Model.Members, "Id", "FullName");
+}
+
+<h1 class="text-center animated fadeIn text-white">Add Return</h1>
+<hr />
+
+<div class="container mt-5 animated-container">
+    <div class="row justify-content-center">
+        <!-- كارت إضافة المرتجع -->
+        <div class="col-md-6">
+            <div class="card login-card animated-card slide-in-left">
+                <div class="card-body">
+                    <form asp-action="AddReturn" class="animated fadeIn">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- حقل تاريخ العودة -->
+                        <div class="form-group">
+                            <label asp-for="Return_Date" class="control-label">Return Date</label>
+                            <input asp-for="Return_Date" class="form-control styled-input" placeholder="Enter Return Date" />
+                            <span asp-validation-for="Return_Date" class="text-danger"></span>
+                        </div>
+
+                        <!-- حقل الكتاب -->
+                        <div class="form-group">
+                            <label asp-for="BookId" class="control-label">Book</label>
+                            <select asp-for="BookId" asp-items="BooksList" class="form-control styled-input">
+                                <option>Select Book</option>
+                            </select>
+                            <span asp-validation-for="BookId" class="text-danger"></span>
+                        </div>
+
+                        <!-- حقل العضو -->
+                        <div class="form-group">
+                            <label asp-for="MemberId" class="control-label">Member</label>
+                            <select asp-for="MemberId" class="form-control styled-input" asp-items="MemberList">
+                                <option>Select Member</option>
+                            </select>
+                            <span asp-validation-for="MemberId" class="text-danger"></span>
+                        </div>
+
+                        <!-- زر إضافة العودة -->
+                        <div class="form-group text-center">
+                            <input type="submit" value="Create" class="btn btn-primary btn-animated" />
+                        </div>
+                    </form>
+
+                    <!-- زر العودة للقائمة -->
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" class="btn btn-outline-light btn-lg">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    h1 {
+        color: white; 
+    }
+
+    .animated {
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .container {
+        max-width: 900px;
+    }
+
+    .login-card {
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-body {
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #4682B4;
+        border-color: #4682B4;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #5F9EA0;
+    }
+
+    .btn-outline-light {
+        color: white;
+        border-color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-outline-light:hover {
+        background-color: white;
+        color: #4682B4;
+    }
+
+    .form-control.styled-input {
+        background-color: #E6F2FA;
+        border-color: #A1CAF1;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control.styled-input:focus {
+        background-color: #D3EAF8;
+        border-color: #89CFF0;
+        box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+    }
+
+    label {
+        color: #4682B4;
+    }
+
+    .text-danger {
+        color: #e74c3c;
+    }
+
+    .btn-animated {
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    /* تأثير التحريك من اليسار */
+    .slide-in-left {
+        opacity: 0;
+        transform: translateX(-100%);
+        animation: slideInLeft 1s forwards;
+    }
+
+    @@keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .animated-container {
+        animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

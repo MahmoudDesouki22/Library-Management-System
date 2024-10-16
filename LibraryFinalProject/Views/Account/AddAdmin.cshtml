@@ -1,0 +1,164 @@
+﻿@model LibraryFinalProject.ViewModel.RegisterViewModel
+
+@{
+    ViewData["Title"] = "AddAdmin";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card admin-card animated fadeInUp" style="box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); border-radius: 15px; background: linear-gradient(145deg, #e0f7fa, #b2ebf2, #80deea);">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Admin Registration</h4>
+                    <hr />
+                    <form asp-action="AddAdmin">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label"></label>
+                            <input asp-for="UserName" class="form-control styled-input" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control styled-input" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control styled-input" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control styled-input" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label"></label>
+                            <input asp-for="FullName" class="form-control styled-input" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control styled-input" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control styled-input" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Create" class="btn btn-primary btn-animated" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="text-center mt-4">
+        <a asp-action="Index" asp-controller="Book">
+            <button class="btn btn-outline-light btn-lg btn-animated">Back to List</button>
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @Html.RenderPartialAsync("_ValidationScriptsPartial")
+}
+
+<style>
+    /* Global Styles */
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: darkblue;
+    }
+
+    .animated-title {
+        animation: fadeInDown 1s ease-in-out;
+        color: #1e3a8a;
+        margin-bottom: 30px;
+    }
+
+    .admin-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .form-control.styled-input {
+        border: 2px solid #4f83cc;
+        border-radius: 10px;
+        padding: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control.styled-input:focus {
+            border-color: #1e3a8a;
+            box-shadow: 0 0 10px rgba(30, 58, 138, 0.3);
+            transform: scale(1.03);
+        }
+
+    /* Button Styling */
+    .btn-animated {
+        background-color: #4f83cc;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-animated:hover {
+            background-color: #1e3a8a;
+            transform: scale(1.1);
+        }
+
+    /* Animations */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Button Outline Light */
+    .btn-outline-light {
+        background-color: #4f83cc;
+        color: #fff;
+        transition: background-color 0.3s ease;
+        border-radius: 10px;
+        border: none;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #1e3a8a;
+        }
+</style>

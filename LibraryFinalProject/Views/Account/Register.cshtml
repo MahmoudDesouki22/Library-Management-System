@@ -1,0 +1,215 @@
+﻿@model LibraryFinalProject.ViewModel.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="text-center animated fadeIn text-white">Register</h1>
+<hr />
+<div class="container mt-5 animated-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card register-card animated-card slide-in-right">
+                <div class="card-body">
+                    <form asp-action="Register" class="animated fadeIn">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label">Username</label>
+                            <input asp-for="UserName" class="form-control styled-input" placeholder="Enter Username" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label">Password</label>
+                            <input asp-for="Password" class="form-control styled-input" placeholder="Enter Password" type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+                            <input asp-for="ConfirmPassword" class="form-control styled-input" placeholder="Confirm Password" type="password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label">Address</label>
+                            <input asp-for="Address" class="form-control styled-input" placeholder="Enter Address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label">Full Name</label>
+                            <input asp-for="FullName" class="form-control styled-input" placeholder="Enter Full Name" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control styled-input" placeholder="Enter Email" type="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label">Phone Number</label>
+                            <input asp-for="Phone" class="form-control styled-input" placeholder="Enter Phone Number" type="tel" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group text-center">
+                            <input type="submit" value="Register" class="btn btn-primary btn-animated" />
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a asp-action="Login" class="btn btn-primary btn-animated">Back to Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="~/Images/Login1.png" class="floating-img img-left" alt="Image Left" />
+    <img src="~/Images/Login2.png" class="floating-img img-right" alt="Image Right" />
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    h1 {
+        color: white;
+    }
+
+    .animated {
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .container {
+        max-width: 900px;
+    }
+
+    .register-card {
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .register-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-body {
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #4682B4;
+        border-color: #4682B4;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #5F9EA0;
+        }
+
+    .form-control.styled-input {
+        background-color: #E6F2FA;
+        border-color: #A1CAF1;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control.styled-input:focus {
+            background-color: #D3EAF8;
+            border-color: #89CFF0;
+            box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+        }
+
+    label {
+        color: #4682B4;
+    }
+
+    .text-danger {
+        color: #e74c3c;
+    }
+
+    .btn-animated {
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .slide-in-right {
+        opacity: 0;
+        transform: translateX(100%);
+        animation: slideInRight 1s forwards;
+    }
+
+    @@keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .floating-img {
+        width: 300px; /* تم زيادة الحجم إلى الضعف */
+        position: absolute;
+        animation: float 3s ease-in-out infinite; /* زادت السرعة */
+    }
+
+    .img-left {
+        top: 50%;
+        left: 5%;
+        transform: translateY(-50%);
+    }
+
+    .img-right {
+        top: 50%;
+        right: 5%;
+        transform: translateY(-50%);
+    }
+
+    @@keyframes float {
+        0% {
+            transform: translateY(-20px); 
+        }
+
+        50% {
+            transform: translateY(20px);
+        }
+
+        100% {
+            transform: translateY(-20px);
+        }
+    }
+</style>

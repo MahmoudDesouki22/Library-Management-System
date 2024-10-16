@@ -1,0 +1,134 @@
+﻿@model LibraryFinalProject.ViewModel.RoleViewModel
+
+@{
+    ViewData["Title"] = "New Role";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center animated-title fadeIn">Create New Role</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card role-card animated fadeInUp" style="box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); border-radius: 15px; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
+                <div class="card-body">
+                    <h4 class="text-center mb-4">Role Details</h4>
+                    <form asp-action="New">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Role Name Input -->
+                        <div class="form-group">
+                            <label asp-for="RoleName" class="control-label"></label>
+                            <input asp-for="RoleName" class="form-control styled-input" />
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <input type="submit" value="Create" class="btn btn-primary btn-animated" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-action="Index" asp-controller="Book" class="btn btn-secondary btn-animated">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<style>
+    /* إعدادات الخلفية */
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: darkblue;
+    }
+
+    /* إعدادات العنوان */
+    .animated-title {
+        animation: fadeInDown 1s ease-in-out;
+        color: #0d47a1;
+        margin-bottom: 30px;
+    }
+
+    /* الأنيميشن */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* إعدادات الكارت */
+    .role-card {
+        border-radius: 15px;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    /* إعدادات الحقول */
+    .form-control.styled-input {
+        border: 2px solid #42a5f5;
+        padding: 10px;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .form-control.styled-input:focus {
+        border-color: #0d47a1;
+        box-shadow: 0 0 10px rgba(13, 71, 161, 0.3);
+        transform: scale(1.03);
+    }
+
+    /* إعدادات الأزرار */
+    .btn-animated {
+        background-color: #42a5f5;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-animated:hover {
+        background-color: #0d47a1;
+        transform: scale(1.1);
+    }
+
+    .btn-secondary {
+        background-color: #b0bec5;
+        border-color: #b0bec5;
+        color: #000;
+    }
+
+    .btn-secondary:hover {
+        background-color: #78909c;
+    }
+</style>

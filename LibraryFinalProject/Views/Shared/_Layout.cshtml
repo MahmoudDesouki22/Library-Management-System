@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryFinalProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LibraryFinalProject.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><a class="nav-link text-dark" src="#"><h3>Kotaib</h3></a></li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="IndexForManagers">Home Managers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Genre" asp-action="Index">Genres</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Librarian"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Checkouts" asp-action="Index">Checkouts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Return" asp-action="Index">Returns</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Penalty" asp-action="Index">Penalties</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">Home</a>
+                        </li>
+
+                        @if (User.IsInRole("Librarian") == false && User.IsInRole("Admin") == false && User.Identity.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="MyHistory">My History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Penalty" asp-action="IndexForMembers" asp-route-user="@User.Identity.Name">My Penalties</a>
+                            </li>
+                        }
+
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AddLibrarian">Add Librarian</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AddAdmin">Add Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Role" asp-action="New">Add Role</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="nav navbar">
+                        @if (User.Identity.IsAuthenticated == false)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login"><h5>Login</h5></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register"><h5>Register</h5></a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout"><h5>Logout</h5></a>
+                            </li>
+                            <li class="nav-item">
+                                <h5><a class="nav-link text-dark" asp-action="Details" asp-controller="Account" asp-route-user="@User.Identity.Name">Welcome @User.Identity.Name</a></h5>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container" style="color:whitesmoke">
+            &copy; 2024 - LibraryFinalProject - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:whitesmoke">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Styles", required: false)
+</body>
+</html>
+
+<style>
+    /* تأثير الأنيميشن لأزرار التنقل */
+    .nav-item a {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #343a40; /* اللون الأساسي */
+        transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+        padding: 8px 20px; /* زيادة الحشو لجعل الزر أكبر */
+        border-radius: 25px; /* إضافة الحواف الدائرية */
+    }
+
+        /* تأثير عند المرور على الروابط */
+        .nav-item a:hover {
+            transform: scale(1.1); /* تكبير الأزرار قليلاً */
+            color: #fff; /* تغيير اللون إلى الأبيض */
+            background-color: #007bff; /* تغيير الخلفية إلى الأزرق */
+        }
+
+    /* إضافة تأثيرات للـ Navbar */
+    .navbar {
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        /* إضافة تأثير شادو عند التمرير فوق Navbar */
+        .navbar:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    /* تأثير عند الضغط على الأزرار */
+    .nav-item a:active {
+        transform: scale(0.95); /* تصغير الأزرار قليلاً عند الضغط */
+    }
+
+    /* تأثير الأنيميشن للـ Navbar التفاعلي */
+    .navbar-toggler {
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-toggler-icon {
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar-toggler:hover .navbar-toggler-icon {
+        background-color: #007bff; /* تغيير اللون عند المرور */
+    }
+
+    /* تحريك الـ NavBar بشكل جميل عند التمرير */
+    .navbar-nav {
+        animation: slideIn 0.5s ease-in-out;
+    }
+
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* لتأثير الأزرار المتنقلة على الشريط العلوي عند الفتح */
+    .navbar-collapse {
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .navbar-collapse.collapsing {
+            transform: scale(0.9);
+        }
+
+        .navbar-collapse.collapse {
+            transform: scale(1);
+        }
+</style>
+

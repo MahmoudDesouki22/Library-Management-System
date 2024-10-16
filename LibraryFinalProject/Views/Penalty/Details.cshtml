@@ -1,0 +1,131 @@
+﻿@model PenaltyViewMode
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center animated fadeInUp title">Penalty Details</h1>
+
+<table class="table table-bordered table-hover styled-table animated fadeInUp">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Book Title</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>Total Delay Days</th>
+            <th>Total Penalty Amount</th>
+            <th>Is Paid</th>
+            @if (!Model.Is_Paid)
+            {
+                <th>Paying</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.FullName</td>
+            <td>@Model.Title</td>
+            <td>@Model.Due_Date</td>
+            <td>@Model.Return_Date</td>
+            <td>@Model.TotalDelayDays</td>
+            <td>@Model.TotalPenaltyAmount</td>
+            <td>@Model.Is_Paid</td>
+            @if (!Model.Is_Paid)
+            {
+                <td>
+                    <form asp-action="Pay" asp-controller="Penalty">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-pay-now">Pay Now</button>
+                    </form>
+                </td>
+            }
+        </tr>
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-back">Return To List</a>
+
+<!-- Add your styles directly here or link to an external CSS file -->
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+    .title {
+        font-size: 2rem;
+        color: #2e3d49;
+        margin-bottom: 20px;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animated {
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .styled-table th, .styled-table td {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .styled-table th {
+        background-color: #2e3d49;
+        color: #fff;
+    }
+
+    .styled-table td {
+        background-color: #f9f9f9;
+    }
+
+    .btn-pay-now {
+        background-color: #28a745;
+        border-color: #28a745;
+        color: white;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-pay-now:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+
+    .btn-back {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        margin-top: 20px;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-back:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+</style>
+

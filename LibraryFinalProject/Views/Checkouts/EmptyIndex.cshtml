@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "EmptyIndex";
+}
+
+<h1 class="text-center animated fadeIn">Checkout Records</h1>
+
+<div class="text-center mb-3">
+    <a asp-action="Add" asp-controller="Checkouts" class="btn btn-primary btn-animated">Add Checkout</a>
+</div>
+
+<table class="table table-hover animated fadeInUp table-custom">
+    <thead>
+        <tr>
+            <th>Checkout Date</th>
+            <th>Due Date</th>
+            <th>Member Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Example Data Row (To be replaced by actual data) -->
+        <tr>
+            <td>2024-10-06</td>
+            <td>2024-10-13</td>
+            <td>John Doe</td>
+            <td>$10</td>
+            <td><button class="btn btn-danger btn-animated">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- CSS Styling -->
+<style>
+    /* أنيميشن fadeIn */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* أنيميشن fadeInUp */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* الأنيميشن */
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+    }
+
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    /* تصميم الجدول */
+    .table-custom {
+        width: 100%;
+        background-color: #f9f9f9;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+    }
+
+        .table-custom th, .table-custom td {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #e0f7fa;
+            transition: background-color 0.3s ease;
+        }
+
+    /* الأزرار */
+    .btn-animated {
+        transition: transform 0.2s ease, background-color 0.3s ease;
+        font-size: 1rem;
+        border-radius: 25px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary {
+        background-color: #4f83cc;
+        border-color: #4f83cc;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #1e3a8a;
+            transform: scale(1.05);
+        }
+
+    .btn-danger {
+        background-color: #e57373;
+        border-color: #e57373;
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+    /* تظليل رأس الجدول */
+    .table-hover thead th {
+        background-color: #4f83cc;
+        color: white;
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* تغيير الخلفية */
+    body {
+        background-color: #f7f9fc;
+        font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+        color: #1e3a8a;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+</style>

@@ -1,0 +1,189 @@
+﻿@model LibraryFinalProject.ViewModel.BookAndGenreViewModel
+
+@{
+    ViewData["Title"] = "Edit Book";
+    SelectList selectList = new SelectList(Model.genres, "Id", "Name");
+}
+
+<div class="container mt-5">
+    <h1 class="text-center animated-title fadeIn">Edit Book</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card edit-card animated fadeInUp" style="box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); border-radius: 15px; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
+                <div class="card-body">
+                    <!-- تأكد من إضافة enctype="multipart/form-data" لدعم رفع الملفات -->
+                    <form asp-action="EditBook" asp-route-id="@Model.Id" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- عنوان الكتاب -->
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label">Book Title</label>
+                            <input asp-for="Title" class="form-control styled-input" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <!-- وصف الكتاب -->
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label">Description</label>
+                            <textarea asp-for="Description" class="form-control styled-input"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <!-- المؤلف -->
+                        <div class="form-group">
+                            <label asp-for="Author" class="control-label">Author</label>
+                            <input asp-for="Author" class="form-control styled-input" />
+                            <span asp-validation-for="Author" class="text-danger"></span>
+                        </div>
+
+                        <!-- حالة التوفر -->
+                         <div class="form-group">
+                            <label asp-for="Availability_Status"></label><br />
+                            <select asp-for="Availability_Status" class="form-control styled-input">
+                                <option value="0">Select Availability</option>
+                                <option value="Available">Available</option>
+                                <option value="Not Available">Not Available</option>
+                            </select>
+                            <span asp-validation-for="Availability_Status" class="text-danger"></span>
+                        </div>
+
+                        <!-- ISBN -->
+                        <div class="form-group">
+                            <label asp-for="ISBN" class="control-label">ISBN</label>
+                            <input asp-for="ISBN" class="form-control styled-input" />
+                            <span asp-validation-for="ISBN" class="text-danger"></span>
+                        </div>
+
+                        <!-- سعر الكتاب لكل أسبوع -->
+                        <div class="form-group">
+                            <label asp-for="PricePerWeek" class="control-label">Price per Week</label>
+                            <input asp-for="PricePerWeek" type="number" step="0.01" class="form-control styled-input" />
+                            <span asp-validation-for="PricePerWeek" class="text-danger"></span>
+                        </div>
+
+                        <!-- تاريخ النشر -->
+                        <div class="form-group">
+                            <label asp-for="Publish_Date" class="control-label">Publish Date</label>
+                            <input asp-for="Publish_Date" type="date" class="form-control styled-input" />
+                            <span asp-validation-for="Publish_Date" class="text-danger"></span>
+                        </div>
+
+                        <!-- عرض الصورة الحالية -->
+                        @if (!string.IsNullOrEmpty(Model.Book_Photo))
+                        {
+                            <div class="form-group">
+                                <label class="control-label">Current Book Photo</label><br />
+                                <img src="~/Images/@Model.Book_Photo" alt="Book Photo" style="width:150px;height:150px; border-radius: 10px;" />
+                            </div>
+                        }
+
+                        <!-- تغيير صورة الكتاب -->
+                        <div class="form-group">
+                            <label asp-for="BookPhotoFile" class="control-label">Change Book Photo</label>
+                            <input asp-for="BookPhotoFile" type="file" class="form-control styled-input" />
+                            <span asp-validation-for="BookPhotoFile" class="text-danger"></span>
+                        </div>
+
+                        <!-- نوع الكتاب -->
+                        <div class="form-group">
+                            <label asp-for="Genre_Id" class="control-label">Genre</label>
+                            <select asp-for="Genre_Id" asp-items="selectList" class="form-control styled-input">
+                                <option value="">Select Genre</option>
+                            </select>
+                            <span asp-validation-for="Genre_Id" class="text-danger"></span>
+                        </div>
+
+                        <!-- زر التحديث -->
+                        <div class="form-group text-center">
+                            <input type="submit" value="Update" class="btn btn-primary btn-animated" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-action="IndexForManagers" class="btn btn-secondary btn-animated">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: black;
+    }
+
+    .animated-title {
+        animation: fadeInDown 1s ease-in-out;
+        color: #0d47a1;
+        margin-bottom: 30px;
+    }
+
+    
+
+    .edit-card {
+        border-radius: 15px;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .form-control.styled-input {
+        border: 2px solid #42a5f5;
+        padding: 10px;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .form-control.styled-input:focus {
+        border-color: #0d47a1;
+        box-shadow: 0 0 10px rgba(13, 71, 161, 0.3);
+        transform: scale(1.03);
+    }
+
+    .btn-animated {
+        background-color: #42a5f5;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-animated:hover {
+        background-color: #0d47a1;
+        transform: scale(1.1);
+    }
+
+    .btn-secondary {
+        background-color: #b0bec5;
+        border-color: #b0bec5;
+        color: #000;
+    }
+
+    .btn-secondary:hover {
+        background-color: #78909c;
+    }
+
+    img {
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+</style>

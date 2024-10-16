@@ -1,0 +1,8 @@
+﻿@model List<BookAndGenreViewModel>
+<form method="get" asp-action="Index" class="form-inline mb-4">
+    <div class="form-group">
+        <label for="search" class="mr-2">Search</label>
+        <input type="text" id="search" name="search" class="form-control" placeholder="Title, Author, or Genre" value="@ViewData["SearchQuery"]" />
+    </div>
+    <button type="submit" class="btn btn-primary ml-2">Search</button>
+</form>
